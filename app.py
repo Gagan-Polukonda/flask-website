@@ -7,7 +7,7 @@ def create_app(config_name='default'):
     app.config.from_object(config[config_name])
     
     # Register blueprints
-    app.register_blueprint(views, url_prefix='/views')
+    app.register_blueprint(views)
     
     return app
 

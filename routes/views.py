@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 
 # initialize the blueprint
-views = Blueprint(__name__, "views")
+views = Blueprint("views", __name__)
 
 
 @views.route("/")
@@ -34,20 +34,3 @@ def get_data():
 @views.route("/go-to-home")
 def go_to_home():
     return redirect(url_for("views.home"))
-
-
-@views.route("/login", methods=["POST", "GET"])
-def login():
-    if request.method == "POST":
-        user = request.form["nm"]
-        return redirect(url_for("views.user", usr=user))
-    else:
-        return render_template("profile.html")
-
-
-@views.route("/<usr>")
-def user(usr):
-    if usr in ['Gagan']:
-        return f"<h1>{usr}</h1>"
-    else:
-        return "<h1>User not found</h1>"
