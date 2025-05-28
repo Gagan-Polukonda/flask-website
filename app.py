@@ -1,9 +1,16 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
-from views import views
+from flask import Flask
+from routes.views import views
+from config import config
 
-app = Flask(__name__)
-app.register_blueprint(views, url_prefix='/views')
-
+def create_app(config_name='default'):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    
+    # Register blueprints
+    app.register_blueprint(views, url_prefix='/views')
+    
+    return app
 
 if __name__ == '__main__':
-    app.run(debug=True, port=7000)
+    app = create_app('development')
+    app.run(port=7000)
